@@ -11,6 +11,7 @@ import { StyledInput } from 'components/StyledInput'
 import { EyeIcon } from 'components/icons/EyeIcon'
 import { EyeSlashIcon } from 'components/icons/EyeSlashIcon'
 import { loginService } from 'services/login.service'
+import { cookies } from 'ssot/cookies'
 
 const loginNotifications = {
 	SUCCESS: 'Logged Successfully!',
@@ -41,6 +42,8 @@ export default function LoginPage() {
 					toast.error(loginNotifications.UNAUTHORIZED)
 					return
 				}
+
+				document.cookie = `${cookies.LOGGED_USER}=${JSON.stringify(res)}`
 
 				toast.success(loginNotifications.SUCCESS)
 				setTimeout(() => {

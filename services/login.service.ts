@@ -6,13 +6,7 @@ interface ILoginDTO {
 	password: string
 }
 
-interface ErrorResponse {
-	error: string
-}
-
-export type TLoginResponse = IUserAuth | ErrorResponse
-
-const login = async (loginDto: ILoginDTO): Promise<TLoginResponse> => {
+const login = async (loginDto: ILoginDTO): Promise<IUserAuth> => {
 	const res = await fetch(`${API_BASE_URL}/login`, {
 		method: 'POST',
 		headers: {
