@@ -1,6 +1,11 @@
 import { ITweet } from 'interfaces/tweet.interface'
+import { getAuthToken } from 'utils/getAuthToken'
 
 export const API_BASE_URL = 'http://localhost:8000/api/v1'
+
+interface ICreateTweetDTO {
+	content: string
+}
 
 const getAllTweets = async (): Promise<ITweet[] | []> => {
 	const res = await fetch(`${API_BASE_URL}/tweets`, {
@@ -15,7 +20,20 @@ const getAllTweets = async (): Promise<ITweet[] | []> => {
 	return res.json()
 }
 
-const createTweet = () => {}
+const createTweet = async (dto: ICreateTweetDTO) => {
+	const authToken = getAuthToken()
+
+	const res = await fetch(`${API_BASE_URL}/tweets`, {
+		method: 'POST',
+		body: JSON.stringify(dto),
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${authToken}`,
+		},
+	})
+
+	return res.json()
+}
 
 const updateTweet = () => {}
 
