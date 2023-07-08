@@ -13,7 +13,7 @@ export default async function IndexPage() {
 					<Link
 						href={`/tweet/${tweet.id}`}
 						key={tweet.id}
-						className='bg-topbar-background-black p-4 rounded-md text-[14px] flex flex-col gap-2'
+						className='bg-topbar-background-black p-4 rounded-md text-[14px] flex flex-col gap-2 w-full'
 					>
 						<div className='flex justify-between text-[12px] text-text-secondary'>
 							<span className=''>{`@${tweet.user.username}`}</span>

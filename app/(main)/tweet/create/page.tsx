@@ -39,6 +39,8 @@ export default function CreateTweetPage() {
 		<div>
 			<Toaster />
 
+			<h1 className='text-center text-text-secondary mb-[32px]'>New weet</h1>
+
 			<form
 				className=' flex flex-col items-end gap-[16px]'
 				onSubmit={handlePublish}
