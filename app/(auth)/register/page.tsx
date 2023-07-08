@@ -3,14 +3,17 @@
 import Link from 'next/link'
 import { FormEventHandler, useState } from 'react'
 import { Toaster, toast } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 import { FormField } from 'components/FormField'
 import { PrimaryButton } from 'components/PrimaryButton'
 import { EyeIcon } from 'components/icons/EyeIcon'
 import { StyledInput } from 'components/StyledInput'
 import { EyeSlashIcon } from 'components/icons/EyeSlashIcon'
+import { userService } from 'services/user.service'
 
 const registerNotifications = {
+	UNKNOW_ERROR: 'Oh no! Something went wrong. Please try again',
 	INCOMPLETE_FIELDS: 'Please complete all fields',
 	UNMATCH_PASSWORDS: 'Passwords must be the same',
 	SUCCESS: 'Account created successfully!',
@@ -26,15 +29,27 @@ export default function RegisterPage() {
 	const [showPasswordInput, setShowPasswordInput] = useState(false)
 	const [showRepeatPasswordInput, setShowRepeatPasswordInput] = useState(false)
 
+	const router = useRouter()
+
+	const resetForm = () => {
+		setUsernameInput('')
+		setEmailInput('')
+		setPasswordInput('')
+		setRepeatPasswordInput('')
+		setNameInput('')
+		setShowPasswordInput(false)
+		setShowRepeatPasswordInput(false)
+	}
+
 	const handleRegister: FormEventHandler<HTMLFormElement> = e => {
 		e.preventDefault()
 
 		if (
 			usernameInput === '' ||
-			emailInput === '' ||
 			passwordInput === '' ||
 			repeatPasswordInput === ''
 		) {
+			// add check for email input
 			toast.error(registerNotifications.INCOMPLETE_FIELDS)
 			return
 		}
@@ -44,15 +59,23 @@ export default function RegisterPage() {
 			return
 		}
 
-		toast.success(registerNotifications.SUCCESS)
-
-		setUsernameInput('')
-		setEmailInput('')
-		setPasswordInput('')
-		setRepeatPasswordInput('')
-		setNameInput('')
-		setShowPasswordInput(false)
-		setShowRepeatPasswordInput(false)
+		userService
+			.createUser({
+				username: usernameInput,
+				password: passwordInput,
+				...(nameInput ? { name: nameInput } : {}),
+			})
+			.then(res => {
+				console.log({ res })
+				toast.success(registerNotifications.SUCCESS)
+				setTimeout(() => {
+					router.push('/login')
+				}, 2000)
+			})
+			.catch(err => {
+				console.error(err)
+				toast.error(registerNotifications.UNKNOW_ERROR)
+			})
 	}
 
 	return (
@@ -76,7 +99,7 @@ export default function RegisterPage() {
 					/>
 				</FormField>
 
-				<FormField inputId='email' labelValue='Email'>
+				{/* <FormField inputId='email' labelValue='Email'>
 					<StyledInput
 						type='email'
 						placeholder='eg. nico@correo.com'
@@ -85,7 +108,7 @@ export default function RegisterPage() {
 						value={emailInput}
 						onChangeFn={({ target }) => setEmailInput(target.value)}
 					/>
-				</FormField>
+				</FormField> */}
 
 				<FormField inputId='password' labelValue='Password'>
 					<div className='relative'>

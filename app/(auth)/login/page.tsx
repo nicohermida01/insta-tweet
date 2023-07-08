@@ -14,6 +14,7 @@ import { loginService } from 'services/login.service'
 import { cookies } from 'ssot/cookies'
 
 const loginNotifications = {
+	UNKNOW_ERROR: 'Oh no! Something went wrong. Please try again',
 	SUCCESS: 'Logged Successfully!',
 	UNAUTHORIZED: 'Invalid username or password',
 	INCOMPLETE_FIELDS: 'Please complete all fields',
@@ -52,7 +53,7 @@ export default function LoginPage() {
 			})
 			.catch(err => {
 				console.error(err)
-				// handle error
+				toast.error(loginNotifications.UNKNOW_ERROR)
 			})
 			.finally(() => {
 				setUsernameInput('')
