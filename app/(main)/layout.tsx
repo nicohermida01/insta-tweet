@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
-import 'app/globals.css'
 
+import 'app/globals.css'
 import { PageLayout } from 'components/PageLayout'
 
 export const APP_NAME = 'InstaTweet'

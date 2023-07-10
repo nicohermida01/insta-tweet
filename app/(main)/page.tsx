@@ -1,7 +1,5 @@
-import Link from 'next/link'
-
+import { TweetCard } from 'components/TweetCard'
 import { tweetService } from 'services/tweet.service'
-import { getRelativeTime } from 'utils/getRelativeTime'
 
 export default async function IndexPage() {
 	const tweets = await tweetService.getAllTweets()
@@ -10,17 +8,14 @@ export default async function IndexPage() {
 		<div className='flex flex-col gap-4 items-center'>
 			{tweets.length > 0 ? (
 				tweets.map(tweet => (
-					<Link
-						href={`/tweet/${tweet.id}`}
+					<TweetCard
 						key={tweet.id}
-						className='bg-topbar-background-black p-4 rounded-md text-[14px] flex flex-col gap-2 w-full'
-					>
-						<div className='flex justify-between text-[12px] text-text-secondary'>
-							<span className=''>{`@${tweet.user.username}`}</span>
-							<span>{getRelativeTime(tweet.createdAt)}</span>
-						</div>
-						{tweet.content}
-					</Link>
+						id={tweet.id}
+						content={tweet.content}
+						createdAt={tweet.createdAt}
+						username={tweet.user.username}
+						{...(tweet.user.name ? { name: tweet.user.username } : {})}
+					/>
 				))
 			) : (
 				<span className='text-text-secondary'>~ No tweets found ~</span>
