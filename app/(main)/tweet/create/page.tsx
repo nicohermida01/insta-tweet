@@ -27,7 +27,6 @@ export default function CreateTweetPage() {
 				content,
 			})
 			.then(res => {
-				console.log({ res })
 				toast.success(createTweetNotifications.SUCCESS)
 			})
 			.catch(err => {})

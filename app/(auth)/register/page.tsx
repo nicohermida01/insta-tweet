@@ -66,7 +66,6 @@ export default function RegisterPage() {
 				...(nameInput ? { name: nameInput } : {}),
 			})
 			.then(res => {
-				console.log({ res })
 				toast.success(registerNotifications.SUCCESS)
 				setTimeout(() => {
 					router.push('/login')

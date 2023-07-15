@@ -14,7 +14,7 @@ export default async function IndexPage() {
 						content={tweet.content}
 						createdAt={tweet.createdAt}
 						username={tweet.user.username}
-						{...(tweet.user.name ? { name: tweet.user.username } : {})}
+						{...(tweet.user.name ? { name: tweet.user.name } : {})}
 					/>
 				))
 			) : (

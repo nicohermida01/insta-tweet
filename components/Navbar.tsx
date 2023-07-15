@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { ProfileLink } from 'components/ProfileLink'
+
 export function Navbar() {
 	return (
 		<footer className='fixed bottom-0 left-0 bg-topbar-background-black w-full'>
@@ -33,15 +35,7 @@ export function Navbar() {
 						</Link>
 					</li>
 					<li>
-						<Link href='/profile'>
-							<Image
-								src='/user.svg'
-								alt='User icon'
-								width={24}
-								height={24}
-								priority
-							/>
-						</Link>
+						<ProfileLink />
 					</li>
 				</ul>
 			</nav>

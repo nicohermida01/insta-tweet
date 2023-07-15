@@ -1,4 +1,5 @@
-import { API_BASE_URL } from './tweet.service'
+import { IUserPopulated } from 'interfaces/user.interface'
+import { API_BASE_URL } from 'services/tweet.service'
 
 interface ICreateUserDTO {
 	username: string
@@ -15,7 +16,13 @@ const createUser = async (dto: ICreateUserDTO) => {
 		body: JSON.stringify(dto),
 	})
 
-	return res.json()
+	return await res.json()
+}
+
+const getUserPopulated = async (username: string): Promise<IUserPopulated> => {
+	const res = await fetch(`${API_BASE_URL}/users/username/${username}`)
+
+	return await res.json()
 }
 
 const updateUser = () => {}
@@ -23,4 +30,5 @@ const updateUser = () => {}
 export const userService = {
 	createUser,
 	updateUser,
+	getUserPopulated,
 }

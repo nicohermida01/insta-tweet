@@ -1,5 +1,5 @@
 import { ITweet } from 'interfaces/tweet.interface'
-import { getAuthToken } from 'utils/getAuthToken'
+import { getAuthCookie } from 'utils/getAuthCookie'
 
 export const API_BASE_URL = 'http://localhost:8000/api/v1'
 
@@ -21,7 +21,7 @@ const getAllTweets = async (): Promise<ITweet[] | []> => {
 }
 
 const createTweet = async (dto: ICreateTweetDTO) => {
-	const authToken = getAuthToken()
+	const authToken = getAuthCookie().token
 
 	const res = await fetch(`${API_BASE_URL}/tweets`, {
 		method: 'POST',
