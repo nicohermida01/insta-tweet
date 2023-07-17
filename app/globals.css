@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	--comment-action-color: #416bdf;
+	--like-action-color: #e9444d;
+	--retweet-action-color: #43bf7f;
+}
+
+@layer components {
+	.tweet-action,
+	.tweet-action div,
+	.tweet-action svg {
+		transition: all ease 0.3s;
+	}
+
+	.tweet-action div {
+		border-radius: 50%;
+		padding: 8px;
+	}
+
+	.comment-action:hover div {
+		background: rgba(25, 107, 223, 0.1);
+	}
+	.comment-action:hover {
+		color: var(--comment-action-color);
+	}
+	.comment-action:hover svg {
+		fill: var(--comment-action-color);
+	}
+
+	.like-action:hover div {
+		background: rgba(233, 68, 77, 0.1);
+	}
+	.like-action:hover {
+		color: var(--like-action-color);
+	}
+	.like-action:hover svg {
+		fill: var(--like-action-color);
+	}
+
+	.retweet-action:hover div {
+		background: rgba(67, 191, 127, 0.1);
+	}
+	.retweet-action:hover {
+		color: var(--retweet-action-color);
+	}
+	.retweet-action:hover svg {
+		fill: var(--retweet-action-color);
+	}
+}

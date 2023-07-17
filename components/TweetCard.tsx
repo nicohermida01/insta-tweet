@@ -1,5 +1,9 @@
 import Link from 'next/link'
+
 import { getRelativeTime } from 'utils/getRelativeTime'
+import { CommentBtnAction } from 'components/CommentBtnAction'
+import { RetweetActionButton } from 'components/RetweetBtnAction'
+import { LikeBtnAction } from 'components/LikeBtnAction'
 
 interface ITweetCardProps {
 	id: string
@@ -29,7 +33,14 @@ export function TweetCard({
 
 				<span>{getRelativeTime(createdAt)}</span>
 			</div>
-			{content}
+
+			<p className='my-1'>{content}</p>
+
+			<div className='text-xs flex gap-6'>
+				<CommentBtnAction />
+				<RetweetActionButton />
+				<LikeBtnAction />
+			</div>
 		</Link>
 	)
 }
